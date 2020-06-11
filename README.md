@@ -43,3 +43,23 @@ Note: If you're using Linux Bash for Windows, [see this guide](https://www.howto
 ## License
 
 [CC0 1.0 (Public Domain)](LICENSE.md)
+
+# 打包 参考 https://github.com/electron-userland/electron-webpack-quick-start
+# brew install yarn
+# yarn add electron-builder --dev
+> 修改package.json， 代码片段如下
+```
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "devDependencies": {
+    "electron": "^8.2.5",
+    "electron-builder": "^22.7.0"
+  },
+```
+# yarn
+# yarn dist
+// 指定平台
+# yarn dist --win

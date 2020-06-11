@@ -1,13 +1,16 @@
 let $ = require('jquery')
 let fs = require('fs')
-let filename = 'contacts'
+let path = require('path')
+
+const appDatatDirPath = getAppDataPath();
+let filename = path.join(appDatatDirPath, 'contacts.json')
 let sno = 0
 
 $('#add-to-list').on('click', () => {
    let name = $('#Name').val()
    let email = $('#Email').val()
 
-   fs.appendFile('contacts', name + ',' + email + '\n',(err) => {
+   fs.appendFile(filename, name + ',' + email + '\n',(err) => {
     if (err) throw err;
     console.log('The "data to append" was appended to file!');
   })
@@ -23,6 +26,24 @@ function addEntry(name, email) {
       $('#contact-table').append(updateString)
    }
 }
+
+function getAppDataPath() {
+   switch (process.platform) {
+     case "darwin": {
+       return path.join(process.env.HOME, "Library", "Application Support", "MyElectron");
+     }
+     case "win32": {
+       return path.join(process.env.APPDATA, "MyElectron");
+     }
+     case "linux": {
+       return path.join(process.env.HOME, ".MyElectron");
+     }
+     default: {
+       console.log("Unsupported platform!");
+       process.exit(1);
+     }
+   }
+ }
 
 function loadAndDisplayContacts() {  
    
