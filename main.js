@@ -1,4 +1,4 @@
-const {app, BrowserWindow} = require('electron')
+const {app, BrowserWindow, dialog} = require('electron')
 const url = require('url')
 const path = require('path')
 
@@ -11,6 +11,17 @@ function createWindow() {
       protocol: 'file:',
       slashes: true
    }))
+}
+
+const loadImgFile = exports.loadImgFile = () => {
+   const files = dialog.showOpenDialogSync(win, {
+      properties: ['openFile']
+   })
+
+   if(!files) {return;}
+
+   const file = files[0]
+   return file
 }
 
 app.on('ready', createWindow)
